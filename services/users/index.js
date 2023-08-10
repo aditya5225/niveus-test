@@ -1,0 +1,30 @@
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 5001;
+const { serverPort } = require('../../../config/server');
+const bodyParser = require('body-parser')
+
+const mongoose = require('mongoose');
+
+mongoose.connect(serverPort, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+const usersRoute = require('./routes/usersRoute');
+
+app.use('/users', usersRoute);
+
+app.listen(PORT, () => {
+  console.log(`Users service running on port ${PORT}`);
+});
