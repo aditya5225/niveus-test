@@ -5,7 +5,8 @@ const PORT = 5000;
 
 const routes = {
   '/users': 'http://localhost:5001',
-  '/transactions': 'http://localhost:5002'
+  '/transactions': 'http://localhost:5002',
+  '/gcs_upload': 'http://localhost:5003',
 }
 
 for (let route in routes) {

@@ -25,6 +25,6 @@ const transactionsRoute = require('./routes/transactionsRoute');
 
 app.use('/transactions', transactionsRoute);
 
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
   console.log(`Transactions service running on port ${PORT}`);
 });

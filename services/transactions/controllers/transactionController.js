@@ -64,7 +64,6 @@ const addTransaction = async (req, res, next) => {
             status: 1,
             charges: req.body.charges,
             item_debt: req.body.item_debt,
-            // createdAt: new Date().setDate(new Date().getDate() - 20)
         });
 
         newtransactionInst.save().then(async savedData => {
