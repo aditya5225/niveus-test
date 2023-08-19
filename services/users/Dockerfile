@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /app
+WORKDIR /app/users
 
 COPY package*.json ./
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5001
 
 CMD ["node", "index.js"]

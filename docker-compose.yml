@@ -1,0 +1,83 @@
+version: '3'
+services:
+  transactions:
+    build:
+      context: './services/transactions'
+      dockerfile: Dockerfile
+    ports: 
+      - "5002:5002"
+    command: npm start
+    container_name: transactions-container
+    networks:
+      - niveus-test-network
+    volumes:
+      - ./services/transactions:/app/transactions
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo_db
+
+  users:
+    build:
+      context: './services/users'
+      dockerfile: Dockerfile
+    ports: 
+      - "5001:5001"
+    command: npm start
+    container_name: users-container
+    networks:
+      - niveus-test-network
+    volumes:
+      - ./services/users:/app/users
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo_db
+
+  redis_db:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    container_name: redis-container
+    networks:
+      - niveus-test-network
+    volumes:
+      - redis_db:/data
+    restart: always
+
+  mongo_db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    container_name: mongo-container
+    networks:
+      - niveus-test-network
+    volumes:
+      - mongo_db:/data/db
+    restart: always
+
+  app1:
+    build:
+      context: './'
+      dockerfile: Dockerfile
+    ports: 
+      - "5000:5000"
+    command: npm start
+    container_name: app1-container
+    networks:
+      - niveus-test-network
+    volumes:
+      - ./:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - mongo_db
+      - users
+      - transactions
+
+networks:
+  niveus-test-network:
+
+volumes:
+  mongo_db: 
+  redis_db:

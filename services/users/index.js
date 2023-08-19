@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5001;
-const { serverPort } = require('../../config/server');
 const bodyParser = require('body-parser')
+require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-mongoose.connect(serverPort, {
+mongoose.connect(process.env.SERVER_PORT, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
