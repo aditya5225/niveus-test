@@ -10,15 +10,13 @@ const routes = {
 }
 
 for (let route in routes) {
-  for (let route in routes) {
-    app.use(route, createProxyMiddleware(route, {
-      target: routes[route],
-      changeOrigin: true,
-      pathRewrite: {
-        [route]: '',
-      },
-    }));
-  }
+  app.use(route, createProxyMiddleware(route, {
+    target: routes[route],
+    changeOrigin: true,
+    pathRewrite: {
+      [route]: '',
+    },
+  }));
 }
 
 app.listen(PORT, () => {

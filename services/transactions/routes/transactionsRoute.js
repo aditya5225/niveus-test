@@ -24,8 +24,7 @@ const cacheMiddleware = async (req, res, next) => {
     }
 };
 
-// router.get('/fetch_transactions', cacheMiddleware, transactionController.fetchtransactions);
-router.get('/fetch_transactions', transactionController.fetchtransactions);
+router.get('/fetch_transactions', cacheMiddleware, transactionController.fetchtransactions);
 router.post('/add_transaction', transactionController.addTransaction);
 
 module.exports = router;

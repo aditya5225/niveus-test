@@ -25,6 +25,6 @@ const usersRoute = require('./routes/usersRoute');
 
 app.use('/users', usersRoute);
 
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
   console.log(`Users service running on port ${PORT}`);
 });
