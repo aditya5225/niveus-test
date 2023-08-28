@@ -6,6 +6,7 @@ metadata:
   namespace: default
 data:
   SERVER_PORT: 'mongodb://mongo-service/niveus-testDb'
+  REDIS_PORT: 'redis://redis-service:6379'
   
 ---
 
