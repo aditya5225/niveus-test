@@ -26,7 +26,7 @@ const usersRoute = require('./routes/usersRoute');
 app.use('/users', usersRoute);
 
 app.get('/', (req, res) => {
-  res.send('test Var sssss' + ' ' + process.env.SERVER_PORT)
+  res.send('Api is running!')
 })
 
 app.listen(PORT, () => {

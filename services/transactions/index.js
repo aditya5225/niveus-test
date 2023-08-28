@@ -26,7 +26,7 @@ const transactionsRoute = require('./routes/transactionsRoute');
 app.use('/transactions', transactionsRoute);
 
 app.get('/', (req, res) => {
-  res.send('test transaction bbbbbbb' + ' ' + process.env.SERVER_PORT)
+  res.send('Api is running!')
 })
 
 module.exports = app.listen(PORT, () => {
