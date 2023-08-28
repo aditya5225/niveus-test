@@ -1,0 +1,45 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-app
+  namespace: default
+  labels:
+    app: user-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-app
+  template:
+    metadata:
+      labels:
+        app: user-app
+    spec:
+      containers:
+        - name: user-container
+          image: adityaniveus/user-app:v2
+          envFrom:
+            - configMapRef:
+                name: test-config
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: default
+  labels:
+    app: user-app
+spec:
+  selector:
+    app: user-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5001

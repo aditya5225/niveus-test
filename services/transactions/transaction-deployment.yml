@@ -1,0 +1,44 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-app
+  namespace: default
+  labels:
+    app: transaction-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: transaction-app
+  template:
+    metadata:
+      labels:
+        app: transaction-app
+    spec:
+      containers:
+        - name: transaction-container
+          image: adityaniveus/transaction-app:v1
+          envFrom:
+            - configMapRef:
+                name: test-config
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: transaction-service
+  namespace: default
+  labels:
+    app: transaction-app
+spec:
+  selector:
+    app: transaction-app
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5002

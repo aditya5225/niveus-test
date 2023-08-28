@@ -39,7 +39,7 @@ services:
   redis_db:
     image: redis:latest
     ports:
-      - 6379:6379
+      - 6372:6372
     container_name: redis-container
     networks:
       - niveus-test-network

@@ -1,0 +1,75 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config
+  namespace: default
+data:
+  SERVER_PORT: 'mongodb://mongo-service/niveus-testDb'
+  
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-app
+  namespace: default
+  labels:
+    app: mongo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-app
+  template:
+    metadata:
+      labels:
+        app: mongo-app
+    spec:
+      containers:
+        - name: mongo-container
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  namespace: default
+  labels:
+    app: mongo-app
+spec:
+  selector:
+    app: mongo-app
+  type: LoadBalancer
+  ports:
+    - port: 27017
+      targetPort: 27017

@@ -25,6 +25,10 @@ const usersRoute = require('./routes/usersRoute');
 
 app.use('/users', usersRoute);
 
-module.exports = app.listen(PORT, () => {
+app.get('/', (req, res) => {
+  res.send('test Var sssss' + ' ' + process.env.SERVER_PORT)
+})
+
+app.listen(PORT, () => {
   console.log(`Users service running on port ${PORT}`);
 });
