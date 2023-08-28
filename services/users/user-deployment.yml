@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: user-container
-          image: adityaniveus/user-app:v2
+          image: us-east1-docker.pkg.dev/niveustraining/user-app/user-app:latest
           envFrom:
             - configMapRef:
                 name: test-config

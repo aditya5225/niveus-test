@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: transaction-container
-          image: adityaniveus/transaction-app:v1
+          image: us-east1-docker.pkg.dev/niveustraining/transaction-app/transaction-app:latest
           envFrom:
             - configMapRef:
                 name: test-config
